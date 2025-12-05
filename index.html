@@ -143,18 +143,17 @@
 <script>
     const display = document.getElementById("display");
 
-    // Agregar número o símbolo
+
     function press(value) {
         if (display.innerText === "0") display.innerText = "";
         display.innerText += value;
     }
 
-    // Limpiar pantalla
+
     function clearDisplay() {
         display.innerText = "0";
     }
 
-    // Borrar último carácter
     function deleteChar() {
         if (display.innerText.length === 1) {
             display.innerText = "0";
@@ -163,10 +162,10 @@
         }
     }
 
-    // Calcular resultado
+ 
     function calculate() {
         try {
-            // Reemplaza "X" por "*" antes de evaluar
+           
             let expression = display.innerText.replace(/X/g, "*");
             display.innerText = eval(expression);
         } catch {
@@ -177,4 +176,5 @@
 
 </body>
 </html>
+
 
