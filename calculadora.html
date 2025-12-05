@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculatron 5000</title>
+<style>
+    body {
+        font-family: "Trebuchet MS", sans-serif;
+        background-image: url(Sin-titulo-29.jpg.webp); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        filter: contrast(1.5) brightness(1.05);
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: contrast(1.25) brightness(1.1);
+        z-index: -1;
+    }
+
+    .calculator {
+        width: 320px;
+        background: rgba(211, 184, 158, 0.95);
+        padding: 25px;
+        border-radius: 15px;
+        border: 4px solid #5a4e46;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        transition: 0.2s;
+    }
+
+    .calculator:hover {
+        transform: scale(1.02);
+    }
+
+    .title {
+        text-align: center;
+        font-size: 32px;
+        margin-bottom: 15px;
+        color: #2a2a2a;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #0004;
+    }
+
+    .screen {
+        background: linear-gradient(to bottom, #4d4d4d, #2b2b2b);
+        height: 75px;
+        color: #aef7c5;
+        font-size: 40px;
+        text-align: right;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        border: 2px solid #121212;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 12px;
+    }
+
+    button {
+        height: 60px;
+        font-size: 24px;
+        background: #47423e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.15s;
+        box-shadow: 0 4px 0 #2a271f;
+    }
+
+    button:hover {
+        background: #5b5551;
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 #2a271f;
+    }
+
+    button.op { background: #6e6965; }
+    button.clear { background: #ff6b2b; font-weight: bold; }
+    button.equal { background: #1f1f1f; font-weight: bold; color: #2cff9e; }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="title">Calculadora</div>
+
+    <div class="screen">
+        <span id="display">0</span>
+    </div>
+
+    <div class="buttons">
+
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button onclick="deleteChar()">⌫</button>
+        <button onclick="press('(')">(</button>
+        <button onclick="press(')')">)</button>
+
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button class="op" onclick="press('/')">/</button>
+
+        <button onclick="press('4')">4</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('6')">6</button>
+        <button class="op" onclick="press('X')">X</button>
+
+        <button onclick="press('1')">1</button>
+        <button onclick="press('2')">2</button>
+        <button onclick="press('3')">3</button>
+        <button class="op" onclick="press('-')">-</button>
+
+        <button onclick="press('0')">0</button>
+        <button onclick="press('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+        <button class="op" onclick="press('+')">+</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById("display");
+
+    // Agregar número o símbolo
+    function press(value) {
+        if (display.innerText === "0") display.innerText = "";
+        display.innerText += value;
+    }
+
+    // Limpiar pantalla
+    function clearDisplay() {
+        display.innerText = "0";
+    }
+
+    // Borrar último carácter
+    function deleteChar() {
+        if (display.innerText.length === 1) {
+            display.innerText = "0";
+        } else {
+            display.innerText = display.innerText.slice(0, -1);
+        }
+    }
+
+    // Calcular resultado
+    function calculate() {
+        try {
+            // Reemplaza "X" por "*" antes de evaluar
+            let expression = display.innerText.replace(/X/g, "*");
+            display.innerText = eval(expression);
+        } catch {
+            display.innerText = "Error";
+        }
+    }
+</script>
+
+</body>
+</html>
